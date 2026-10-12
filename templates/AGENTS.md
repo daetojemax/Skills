@@ -99,6 +99,7 @@ Installed skills supply language- and framework-level rules. This file supplies 
 | async/await, actors, `Sendable`, strict-concurrency errors | `swift-concurrency` |
 | SwiftData models, queries, migrations, CloudKit, widgets sharing a store | `swift-data` |
 | Unit and integration tests | `swift-testing` |
+| Verifying the UI when the app runs through Xcode MCP (outside the Claude app) | `device-interaction` (Apple) |
 | App Store Connect, TestFlight, signing, metadata | the matching `asc-*` skill |
 | Implementing a Figma design | the Figma skills / MCP |
 
@@ -109,8 +110,8 @@ Installed skills supply language- and framework-level rules. This file supplies 
 
 ## Build, run, test
 
-- **Running inside the Claude desktop app** (the built-in Claude iOS Simulator tools are available): run the app with those tools. Open the live panel first (`control` → `attach`), build with `build` (`workspace_path`: `Project.xcworkspace`, `scheme`: `<App>`) and poll `build_status`, then `control` → `launch` with the built `.app`. Use `screenshot`, `tap`, `swipe`, `text`, and `open_url` to check the change.
-- **Everywhere else** (Claude Code in a terminal, Codex, other agents): build and run through Xcode MCP – `XcodeOpenWorkspace` with `Project.xcworkspace`, then `BuildProject` / `RunProject`; interact with `DeviceInteraction…` tools.
+- **Running inside the Claude desktop app** (the built-in Claude iOS Simulator tools are available): run the app with those tools. Open the live panel first (`control` → `attach`), build with `build` (`workspace_path`: `Project.xcworkspace`, `scheme`: `<App>`) and poll `build_status`, then `control` → `launch` with the built `.app`. Verify the change with the same tools – `screenshot`, `tap`, `swipe`, `text`, `open_url` – so the user can watch it in the panel.
+- **Everywhere else** (Claude Code in a terminal, Codex, other agents): build and run through Xcode MCP – `XcodeOpenWorkspace` with `Project.xcworkspace`, then `BuildProject` / `RunProject` – and verify the UI with the **`device-interaction` skill**: start a workspace session, install and run, read the UI hierarchy and screenshot, and interact by the hierarchy's `hitPoint` coordinates. It also works on a physical device. Use `device-interaction` only when the app runs through Xcode MCP, never alongside the built-in simulator.
 - In both cases, Xcode MCP is also the tool for `DocumentationSearch`, `RenderPreview`, `XcodeRefreshCodeIssuesInFile`, and test runs.
 - Do not use XcodeBuildMCP (removed from this setup). Do not run shell `xcodebuild` for routine build/run work unless asked.
 - `swift build` on the macOS host is not a reliable check for an iOS-only package; build the app scheme instead.
