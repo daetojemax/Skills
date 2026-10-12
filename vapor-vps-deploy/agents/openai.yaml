@@ -1,0 +1,4 @@
+interface:
+  display_name: "Vapor VPS Deploy"
+  short_description: "Provision and migrate production Vapor VPS hosts"
+  default_prompt: "Use $vapor-vps-deploy to provision or migrate this Vapor production server safely."
