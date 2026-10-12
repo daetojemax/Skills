@@ -32,12 +32,16 @@ Access actor properties through `await` in tests, just like production code. Do 
 
 Swift Testing runs tests in parallel by default, which is usually what you want for concurrency code. However, you may encounter the `.serialized` trait for controlling execution order.
 
-**Important:** `.serialized` only affects parameterized tests. It tells Swift Testing to run that test's argument cases one at a time rather than in parallel. Applying `.serialized` to a non-parameterized test does nothing. Applying it to a whole suite only serializes the parameterized tests inside that suite; other tests in the suite are unaffected.
+**Important:** what `.serialized` does depends on where it is applied:
 
-Agents frequently assume `.serialized` works on any test. It does not.
+- On a **parameterized test**, it runs that test's argument cases one at a time.
+- On a **non-parameterized test function**, it does nothing.
+- On a **suite**, it runs every test function in the suite – parameterized or not – and every sub-suite one at a time (verified by running tests, and stated in Apple's `ParallelizationTrait` documentation).
+
+It never orders a test relative to unrelated tests outside its suite. Prefer fixing shared state over serializing; use a serialized suite only for tests that genuinely share a resource.
 
 ```swift
-// .serialized controls execution order of parameterized cases only.
+// On a parameterized test, .serialized runs the argument cases one at a time.
 @Test(.serialized, arguments: ["alice", "bob", "charlie"])
 func accountCreation(username: String) async throws {
     let account = try await AccountService().create(username: username)

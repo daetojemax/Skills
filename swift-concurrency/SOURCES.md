@@ -21,7 +21,7 @@ git clone https://github.com/AvdLee/Swift-Concurrency-Agent-Skill && git -C Swif
 | `references/new-features.md` | Hudson | **Corrected:** caller-actor async behavior (SE-0461) is gated by `NonisolatedNonsendingByDefault` / Approachable Concurrency, not by the compiler version alone |
 | `references/bug-patterns.md` | Hudson | Same SE-0461 correction |
 | `references/cancellation.md` | Hudson | `ViewModel` → `@MainActor` store; `deinit` → `isolated deinit` with fallback; prefer `.task(id:)` in SwiftUI |
-| `references/testing.md` | Hudson | `ViewModel` examples → stores; Swift Testing Pro link removed |
+| `references/testing.md` | Hudson | `ViewModel` examples → stores; Swift Testing Pro link removed; **corrected** `.serialized` on a suite: it serializes all contained tests, not only parameterized ones (verified by running tests on 2026-10-12, matches Apple's `ParallelizationTrait` docs and Hudson's own Swift Testing Pro) |
 | `references/actors.md` | Hudson | SwiftUI Pro link → `swift-ui` |
 | `references/diagnostics.md` | Hudson + van der Lee `SKILL.md` diagnostics table | Added: main-actor from nonisolated context, `SendableMetatype`, `Thread.current`, XCTest `wait`, SwiftLint `async_without_await`, `@Observable` pointer |
 | `references/observation.md` | van der Lee `observation.md` | Rewritten for MV stores: `@concurrent` helper instead of `Task.detached`; no `MainActor.run` hops for I/O; background-actor `@Observable` discouraged for views; `Observations` example without swift-async-algorithms; ObservableObject migration table dropped |
