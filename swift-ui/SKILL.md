@@ -1,5 +1,5 @@
 ---
-name: swiftui-mv
+name: swift-ui
 description: Builds, reviews, and refactors SwiftUI code using MV (model–view) architecture, modern version-aware APIs, Liquid Glass, accessibility, and adaptive layouts. Use when writing new SwiftUI screens or components, reviewing or refactoring SwiftUI views, wiring navigation, tabs, sheets, or app dependencies, adopting Liquid Glass, checking SwiftUI code for deprecated API, or diagnosing SwiftUI performance problems such as janky scrolling, hangs, high CPU or memory, and excessive view updates.
 license: MIT
 metadata:
@@ -43,7 +43,7 @@ If the environment cannot be checked (a code snippet with no project), ask for t
 - **Architecture is MV, not MVVM.** Views hold local UI state and orchestrate; `@Observable` stores and services hold shared state and real work; dependencies arrive via `@Environment` or the initializer. Do not introduce view models unless the user asks or the codebase already uses them – see `references/architecture.md`.
 - Prefer small, dedicated `View` structs over computed `some View` fragments. A small `private` subview may share its screen's file; reused or independently meaningful views and all non-view types get their own file – see `references/views.md`.
 - Prefer system components (`NavigationStack`, `TabView`, `Form`, `List`, toolbars, sheets) over custom ones; on iOS 26+ they adopt Liquid Glass automatically.
-- Use modern Swift concurrency only (no GCD); defer deep concurrency work to the `swift-concurrency-expert` skill and SwiftData specifics to the `swiftdata-pro` skill.
+- Use modern Swift concurrency only (no GCD); defer deep concurrency work to the `swift-concurrency` skill and SwiftData specifics to the `swiftdata-pro` skill.
 - Avoid UIKit unless requested or required for an integration.
 - Do not introduce third-party frameworks without asking first.
 - Organize the project by feature folders.

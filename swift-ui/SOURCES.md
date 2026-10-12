@@ -27,7 +27,7 @@ git clone https://github.com/Dimillian/Skills && git -C Skills diff 05ba982 HEAD
 | `references/liquid-glass.md` | New, from Apple documentation; checklist ideas from Dimillian `swiftui-liquid-glass` | Written from scratch: HIG rules, version gating, toolbars, tab bars, custom bars |
 | `references/api.md` | SwiftUI Pro | `tabItem` rule gated by deployment target |
 | `references/data.md` | SwiftUI Pro | Cross-references point to local skills |
-| `references/swift.md` | SwiftUI Pro | Concurrency pointer → `swift-concurrency-expert` |
+| `references/swift.md` | SwiftUI Pro | Concurrency pointer → `swift-concurrency` |
 | `references/performance.md` | SwiftUI Pro | Added image rules (from Dimillian audit) and a pointer to the audit workflow |
 | `references/performance-plus.md` | SwiftUI Pro | Unchanged; loaded only in audit mode |
 | `references/performance-audit.md` | Dimillian `swiftui-performance-audit` (`SKILL.md`, `profiling-intake.md`, `report-template.md`, Instruments and WWDC summaries) | Condensed into one file; triage order kept; `code-smells.md` dropped because SwiftUI Pro rules cover it more recently (its shared-formatter advice was also unsafe under Swift 6); fixes constrained to MV |
