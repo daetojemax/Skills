@@ -2,6 +2,8 @@
 
 Many older SwiftUI declarations use `deprecated: 100000.0` in their SDK availability attributes. These are soft deprecations: Xcode stays quiet, so a warning-free build does not establish that the code uses current API. Review the source, and inspect a symbol's `@available` declaration in the SDK when its status is unclear.
 
+Apple publishes the complete list of soft-deprecated SwiftUI APIs with their replacements in its `swiftui-specialist` skill. If `~/.xcode-skills/swiftui-specialist/references/soft-deprecated-apis.md` exists (exported with `xcrun agent skills export --output-dir ~/.xcode-skills`), search it before using an API you are unsure about; otherwise check `@available` in the SDK or use `DocumentationSearch`.
+
 Also check the Dynamic Type deprecations in `accessibility.md` and animatable modifier deprecations in `views.md`.
 
 - Always use `foregroundStyle()` instead of `foregroundColor()`.
@@ -50,13 +52,13 @@ Text("\(red)\(blue)")
 
 ## Toolbars
 
-These APIs require iOS 27 or later unless a different requirement is stated.
+These APIs require iOS 27 or later unless a different requirement is stated. With a lower deployment target, gate the whole `toolbar { }` body in one `if #available(iOS 27, *) { … } else { … }` – conditionals already worked inside toolbar builders – rather than sprinkling checks over individual items.
 
 - Use `ToolbarOverflowMenu` for overflow actions. When toolbar items do not fit, the system now moves them into an overflow menu of its own; a custom ellipsis `Menu` then becomes a nested submenu, while `ToolbarOverflowMenu` contributes its actions directly. This applies on all devices, with especially little room on iPhone Duo where status, toolbar, and tabs occupy the same edge.
 - A menu devoted to one task, such as filtering, can legitimately become a submenu, although it takes another tap to reach. Give it a descriptive SF Symbol rather than an ellipsis, and use `visibilityPriority(.high)` when it should remain in the bar.
 - Assign `.high` visibility priority to frequent actions and items conveying status, and `.low` to expendable items. Without priorities, overflow starts at the trailing end without considering importance. Prioritization is particularly useful on iPhone Duo's outer display, which fits few items.
 - Reserve `.topBarPinnedTrailing` for at most one indispensable action. It stays at the far trailing position, after the overflow control, and moves into the overflow menu only when search is active and room runs out; pinning multiple items undermines adaptive overflow.
-- Consider `.toolbarMinimizationBehavior(.onScrollDown, for: .navigationBar)` for content-led screens such as articles or long lists. It shrinks a horizontal navigation bar during downward scrolling, along with an integrated top tab bar. iPhone Duo's vertical bar does not shrink. The iOS 26 tab bar equivalent is `.tabBarMinimizeBehavior(.onScrollDown)`.
+- Consider `.toolbarMinimizationBehavior(.onScrollDown, for: .navigationBar)` for content-led screens such as articles or long lists. It shrinks a horizontal navigation bar during downward scrolling, along with an integrated top tab bar. iPhone Duo's vertical bar does not shrink. The iOS 26 tab bar equivalent is `.tabBarMinimizeBehavior(.onScrollDown)`. Pair it with `toolbarMinimizationSafeAreaAdjustment(_:for:)` when content's safe area should follow the shrinking bar. (Verified against the iOS 27.0 SDK: the method is `toolbarMinimizationBehavior` – Apple's own `swiftui-whats-new-27` skill calls it `toolbarMinimizeBehavior`, which does not compile.)
 - Apply `contentMarginsRemoved()` to the `ToolbarItem` holding custom imagery when the glass should fit the image. Default margins otherwise produce an oversized pill around an image button or a glass border around a standalone image. Keep standard margins on ordinary buttons.
 - On any supported version, place related controls, such as previous and next actions, in a `ToolbarItemGroup` instead of separate items divided by fixed spacers. The group adapts its spacing and, where supported, accepts one visibility priority for the whole set.
 - With Xcode 27+, a `ForEach` may generate items directly within `toolbar()`, replacing the need to spell out each item on older toolchains. This works with deployment targets back to iOS 16 without a runtime availability branch.

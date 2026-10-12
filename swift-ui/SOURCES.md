@@ -7,6 +7,7 @@ Where each file came from, and what was changed. Use this to check upstream upda
 | [twostraws/SwiftUI-Agent-Skill](https://github.com/twostraws/SwiftUI-Agent-Skill) – SwiftUI Pro 2.0.0 | `f980071` | 2026-10-07 |
 | [Dimillian/Skills](https://github.com/Dimillian/Skills) – swiftui-ui-patterns, swiftui-view-refactor, swiftui-liquid-glass, swiftui-performance-audit | `05ba982` | 2026-03-29 |
 | Apple: "Adopting Liquid Glass", "Applying Liquid Glass to custom views", SwiftUI API reference | – | checked 2026-10-12 |
+| Apple skills exported by Xcode 27.0 (`xcrun agent skills export`): `swiftui-specialist`, `swiftui-whats-new-27` | – | 2026-10-12 |
 
 Check for updates:
 
@@ -46,3 +47,26 @@ Edited: `controls.md` (FormatStyle, `LabeledContent`), `form.md` and `list.md` (
 Unchanged: `loading-placeholders.md`, `previews.md`, `menu-bar.md`.
 
 Not included: UI Patterns `SKILL.md` (superseded by this skill), `app-wiring.md`, `async-state.md`, `navigationstack.md`, `sheets.md`, `deeplinks.md`, `performance.md` (merged into the files above).
+
+
+## Additions from Apple's Xcode 27 skills (2026-10-12)
+
+Most of `swiftui-specialist` matches SwiftUI Pro 2.0 (view structure, data flow, environment, `ForEach`, `AnyShapeStyle`, `View.if()`, single-child `Group`), so only the differences were added. Apple's text is not copied; it stays in `~/.xcode-skills` and is referenced from `api.md` and `xcode27-migration.md`.
+
+| File | Change |
+| --- | --- |
+| `SKILL.md` | Apple's soft-deprecation scope rule (keep the API in the edited view and offer migration afterwards; never mention views you did not edit); pointer to `xcode27-migration.md` |
+| `references/xcode27-migration.md` | New: Xcode 27 SDK compile errors from the `@State` macro and `@ContentBuilder`, with fixes |
+| `references/api.md` | Pointer to Apple's full soft-deprecated API list; gate the whole toolbar body for targets below iOS 27; `toolbarMinimizationSafeAreaAdjustment` |
+| `references/performance.md` | Which style ternaries compile without `AnyShapeStyle` |
+| `references/data.md` | Link to the `@State` macro errors |
+| `references/views.md` | Detail views with named sections |
+
+Verified with the iOS 27.0 SDK (`swiftc -typecheck`):
+
+- `toolbarMinimizationBehavior(_:for:)` compiles; Apple's skill names it `toolbarMinimizeBehavior(_:for:)`, which **does not exist** in the 27.0 SDK. SwiftUI Pro's name was right.
+- `ToolbarItem.hidden()` is unavailable in the 27.0 SDK, consistent with SwiftUI Pro's "Xcode 27.2+".
+- `ToolbarOverflowMenu`, `visibilityPriority`, `.topBarPinnedTrailing`, `contentMarginsRemoved()`, `toolbarVisibility(_:for: .statusBar)`, `toolbarMinimizationSafeAreaAdjustment`, `swipeActionsContainer()` compile.
+- Missing memberwise init for views with `@State` reproduces (`extraneous argument label`).
+- `isOn ? .red : .blue` and `.yellow : .primary` compile; `.primary : .tint` and `.yellow : .tint` do not; `AnyShapeStyle` fixes them.
+- Not reproduced in simple cases (kept as "if you see this error"): the `@State` use-before-initialization error, the `overlay` + `opacity` ambiguity, and a same-module `Color.red` extension.
