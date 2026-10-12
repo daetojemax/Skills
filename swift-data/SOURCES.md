@@ -1,0 +1,48 @@
+# Sources
+
+| Upstream | Commit | Date |
+| --- | --- | --- |
+| [twostraws/SwiftData-Agent-Skill](https://github.com/twostraws/SwiftData-Agent-Skill) – SwiftData Pro 1.0 | `922d989` | 2026-03-11 |
+| [vanab/swiftdata-agent-skill](https://github.com/vanab/swiftdata-agent-skill) – SwiftData Expert | `4819a53` | 2026-02-08 |
+| [akshaypimprikar/ios-swiftdata-testing-agent-skill](https://github.com/akshaypimprikar/ios-swiftdata-testing-agent-skill) – SwiftData Testing | `e8a9875` | 2026-07-19 |
+| Apple: "Syncing model data across a person's devices", "Fetching and filtering time-based model changes", SwiftData API reference | – | checked 2026-10-12 |
+
+Check for updates:
+
+```bash
+git clone https://github.com/twostraws/SwiftData-Agent-Skill && git -C SwiftData-Agent-Skill diff 922d989 HEAD -- swiftdata-pro
+git clone https://github.com/vanab/swiftdata-agent-skill && git -C swiftdata-agent-skill diff 4819a53 HEAD
+git clone https://github.com/akshaypimprikar/ios-swiftdata-testing-agent-skill && git -C ios-swiftdata-testing-agent-skill diff e8a9875 HEAD
+```
+
+
+## File map
+
+| File | Source | Changes |
+| --- | --- | --- |
+| `SKILL.md` | Hudson `SKILL.md`; project intake and search commands from Kudrin | Step 0 with CloudKit / app group / migration detection (globs quoted for zsh); MV rules; five modes; output format kept |
+| `references/core-rules.md` | Hudson | Links → local skills and files; uniqueness rule gated on CloudKit |
+| `references/predicates.md` | Hudson + Kudrin `querying-and-fetching.md` | Added: capture values outside predicates, dynamic `@Query` in `init`, shared predicate helpers |
+| `references/indexing.md`, `class-inheritance.md` | Hudson | Unchanged |
+| `references/context-and-actors.md` | Kudrin `model-context-and-lifecycle.md`, `concurrency-and-actors.md` | Rewritten for MV stores; `@ModelActor` with DTOs and `PersistentIdentifier`; container factory |
+| `references/cloudkit.md` | Hudson `cloudkit.md` + Kudrin `cloudkit-sync.md` + Apple docs | Hudson's rules kept; setup from Apple; new sections on eventual consistency, deterministic deduplication, additive-only evolution |
+| `references/migrations.md` | Kudrin `migrations-and-history.md` + Apple docs + Pimprikar's in-memory gotcha | Full `VersionedSchema` / plan example; `static let` version identifiers and computed stages for strict concurrency; CloudKit pointer |
+| `references/widgets-and-history.md` | Kudrin history notes + Apple "Fetching and filtering time-based model changes" | App group factory, widgets, App Intents, iOS 17 fallback; history types use API-reference names (`DefaultHistoryTransaction`, `HistoryChange`, `changedPersistentIdentifier`), not the article's older beta names |
+| `references/testing.md` | Pimprikar `model-container-fixtures.md`, `model-actor-testing.md` | MV: stores and actors tested directly, no view-model mocks; app factory in memory; CloudKit dedup testing |
+| `references/troubleshooting.md` | Kudrin `troubleshooting-and-updates.md` + triage list | Symptom table expanded; links to local files |
+
+
+## Deliberately not included
+
+- Kudrin: Core Data adoption and coexistence; implementation playbooks; the "duplicates → add `@Attribute(.unique)`" advice without a CloudKit caveat; the model example with both `#Unique` and `@Attribute(.unique)` and a UI flag stored in the model; `.now` called inside `#Predicate`.
+- Pimprikar: mock-repository pattern for view-model tests (MVVM); `Decimal` money values and import-hash deduplication (specific to one finance app); the claim that SwiftData never infers related models (disproved – see below).
+
+
+## Verified on 2026-10-12
+
+Checked by compiling and running small SwiftData programs on macOS with Xcode 26.6:
+
+- `$0.endDate < Date.now` inside `#Predicate` **does not compile**; a captured `let now = Date.now` works. (Kudrin's example is wrong.)
+- `$0.stops.isEmpty == false` compiles but **crashes at runtime** with an `NSException`; `!$0.stops.isEmpty` works. (Hudson's rule confirmed.)
+- `ModelContainer(for: Trip.self)` **includes `Stop`**, reachable only through a relationship. (Pimprikar's claim that relationships are not walked is wrong; the skill still recommends listing every model.)
+- A migration plan on an in-memory store: **no failures** in 600 saves with a single-version plan. Pimprikar's report was not reproduced; the skill keeps the harmless "skip the plan in memory" branch with softened wording.

@@ -107,7 +107,7 @@ struct BookListView: View {
 }
 ```
 
-For SwiftData itself, defer to the `swiftdata-pro` skill.
+For SwiftData itself, defer to the `swift-data` skill.
 
 
 ## Dependency injection

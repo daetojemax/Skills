@@ -71,3 +71,43 @@ Never attempt to use regular expressions in predicates. They will compile cleanl
 }, sort: \Movie.name)
 private var movies: [Movie]
 ```
+
+
+## Capture values outside the predicate
+
+Compute dates, search strings, and other inputs before building the predicate, and refer to the captured constants inside it. Do not call functions or static members such as `Date.now` inside `#Predicate` – `$0.endDate < Date.now` does not compile:
+
+```swift
+let now = Date.now
+let expired = #Predicate<Trip> { $0.endDate < now }
+```
+
+
+## Dynamic queries
+
+When filter or sort depends on input, rebuild the `@Query` in the view's initializer:
+
+```swift
+struct TripList: View {
+    @Query private var trips: [Trip]
+
+    init(searchText: String) {
+        _trips = Query(
+            filter: #Predicate<Trip> {
+                searchText.isEmpty || $0.name.localizedStandardContains(searchText)
+            },
+            sort: \.startDate
+        )
+    }
+
+    var body: some View {
+        List(trips) { trip in
+            TripRow(trip: trip)
+        }
+    }
+}
+```
+
+- Always give user-visible lists an explicit sort order.
+- When several screens show the same subset (a list and a map, a list and a badge count), build the predicate in one static helper on the model, e.g. `Trip.predicate(searchText:)`, so they cannot drift apart.
+- Filter in the predicate, not with `.filter { }` on the results in `body`.

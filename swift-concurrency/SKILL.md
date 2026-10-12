@@ -47,8 +47,18 @@ grep -hoE "swiftLanguageModes?:[^]]*\]|defaultIsolation\([A-Za-z.]+\)|enable(Upc
 - Do not introduce third-party concurrency packages (including swift-async-algorithms) without asking first.
 - Do not suggest `@unchecked Sendable`, `nonisolated(unsafe)`, or `@preconcurrency` to silence errors. If one is truly required, state the safety invariant that makes it correct and how it could later be removed. Prefer actors, value types, `Mutex`, or `sending` parameters.
 - Make the smallest safe change. Do not refactor unrelated architecture while fixing concurrency.
-- For SwiftUI questions use the `swift-ui` skill; for SwiftData, `swiftdata-pro`.
+- For SwiftUI questions use the `swift-ui` skill; for SwiftData, `swift-data`.
 
+
+## Looking up Apple APIs
+
+Do not rely on memory for exact signatures, parameters, or OS availability of Apple APIs – especially anything newer than iOS 18, or anything this skill marks as version-dependent.
+
+1. **Xcode MCP `DocumentationSearch`** (semantic search over Apple's documentation; pass `frameworks`, e.g. `["SwiftUI"]`, to narrow it). Its tools load a few seconds after the server connects. It needs the Xcode MCP server to be configured and this agent approved; Xcode itself does not have to be open.
+2. **If Xcode MCP is unavailable**, fetch the page as JSON: `https://developer.apple.com/tutorials/data/documentation/<framework>/<symbol>.json` – for example `.../documentation/swiftui/view/glasseffect(_:in:).json`. `metadata.platforms` gives availability per OS; `primaryContentSections` holds the declaration and discussion.
+3. **If neither is available**, say that the API detail is unverified rather than presenting it as fact.
+
+Prefer the API reference over Apple's articles when they disagree: articles sometimes keep beta-era names.
 
 ## Modes
 

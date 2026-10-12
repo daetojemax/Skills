@@ -43,12 +43,22 @@ If the environment cannot be checked (a code snippet with no project), ask for t
 - **Architecture is MV, not MVVM.** Views hold local UI state and orchestrate; `@Observable` stores and services hold shared state and real work; dependencies arrive via `@Environment` or the initializer. Do not introduce view models unless the user asks or the codebase already uses them – see `references/architecture.md`.
 - Prefer small, dedicated `View` structs over computed `some View` fragments. A small `private` subview may share its screen's file; reused or independently meaningful views and all non-view types get their own file – see `references/views.md`.
 - Prefer system components (`NavigationStack`, `TabView`, `Form`, `List`, toolbars, sheets) over custom ones; on iOS 26+ they adopt Liquid Glass automatically.
-- Use modern Swift concurrency only (no GCD); defer deep concurrency work to the `swift-concurrency` skill and SwiftData specifics to the `swiftdata-pro` skill.
+- Use modern Swift concurrency only (no GCD); defer deep concurrency work to the `swift-concurrency` skill and SwiftData specifics to the `swift-data` skill.
 - Avoid UIKit unless requested or required for an integration.
 - Do not introduce third-party frameworks without asking first.
 - Organize the project by feature folders.
 - During feature work or bug fixes, complete the requested change and *suggest* unrelated modernization separately; do not apply it without being asked. In reviews, include deprecated API as findings.
 
+
+## Looking up Apple APIs
+
+Do not rely on memory for exact signatures, parameters, or OS availability of Apple APIs – especially anything newer than iOS 18, or anything this skill marks as version-dependent.
+
+1. **Xcode MCP `DocumentationSearch`** (semantic search over Apple's documentation; pass `frameworks`, e.g. `["SwiftUI"]`, to narrow it). Its tools load a few seconds after the server connects. It needs the Xcode MCP server to be configured and this agent approved; Xcode itself does not have to be open.
+2. **If Xcode MCP is unavailable**, fetch the page as JSON: `https://developer.apple.com/tutorials/data/documentation/<framework>/<symbol>.json` – for example `.../documentation/swiftui/view/glasseffect(_:in:).json`. `metadata.platforms` gives availability per OS; `primaryContentSections` holds the declaration and discussion.
+3. **If neither is available**, say that the API detail is unverified rather than presenting it as fact.
+
+Prefer the API reference over Apple's articles when they disagree: articles sometimes keep beta-era names.
 
 ## Modes
 
