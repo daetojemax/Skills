@@ -109,9 +109,10 @@ Installed skills supply language- and framework-level rules. This file supplies 
 
 ## Build, run, test
 
-- **Claude Code: run the app with the built-in Claude iOS Simulator tools.** Open the live panel first (`control` → `attach`), build with `build` (`workspace_path`: `Project.xcworkspace`, `scheme`: `<App>`) and poll `build_status`, then `control` → `launch` with the built `.app`. Use `screenshot`, `tap`, `swipe`, `text`, and `open_url` to check the change.
+- **Running inside the Claude desktop app** (the built-in Claude iOS Simulator tools are available): run the app with those tools. Open the live panel first (`control` → `attach`), build with `build` (`workspace_path`: `Project.xcworkspace`, `scheme`: `<App>`) and poll `build_status`, then `control` → `launch` with the built `.app`. Use `screenshot`, `tap`, `swipe`, `text`, and `open_url` to check the change.
+- **Everywhere else** (Claude Code in a terminal, Codex, other agents): build and run through Xcode MCP – `XcodeOpenWorkspace` with `Project.xcworkspace`, then `BuildProject` / `RunProject`; interact with `DeviceInteraction…` tools.
+- In both cases, Xcode MCP is also the tool for `DocumentationSearch`, `RenderPreview`, `XcodeRefreshCodeIssuesInFile`, and test runs.
 - Do not use XcodeBuildMCP (removed from this setup). Do not run shell `xcodebuild` for routine build/run work unless asked.
-- Xcode MCP stays available for what the simulator tools lack: `DocumentationSearch`, `RenderPreview`, `XcodeRefreshCodeIssuesInFile`, and test runs.
 - `swift build` on the macOS host is not a reliable check for an iOS-only package; build the app scheme instead.
 - Run package tests with the Xcode toolchain: `TOOLCHAINS=com.apple.dt.toolchain.XcodeDefault xcrun swift test` (the default `swift` may be a different toolchain).
 - Use the simulator only to check the specific change in the current task. Describe any broader flow you want to test and wait for approval first.
