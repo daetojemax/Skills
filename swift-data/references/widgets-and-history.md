@@ -96,5 +96,6 @@ for transaction in transactions {
 - **Deleted models**: mark identifying attributes with `@Attribute(.preserveValueOnDeletion)` and read them from the delete change's `tombstone`, e.g. `deletion.tombstone[\.uuid]`. `persistentModelID` alone is useless once the model is gone.
 - **Clean up**: delete transactions every consumer has processed, with `deleteHistory(_:)` and a `token < oldest processed token` predicate. History otherwise grows without limit.
 - **`historyTokenExpired`**: the token refers to deleted history. Reset: refetch everything relevant, then store a fresh token.
+- **Schema migrations write history too.** After a migration, history contains transactions whose author is the Core Data schema migrator (`com.apple.coredata.schemamigrator: …`). A filter like `author != "app"` picks them up; prefer filtering for the authors you expect (`"widget"`, `"intent"`), or skip migrator transactions explicitly.
 
 The type names above (`DefaultHistoryTransaction`, `DefaultHistoryUpdate`, `HistoryChange`, `changedPersistentIdentifier`) match the SwiftData API reference. Apple's article "Fetching and filtering time-based model changes" still uses older beta names (`History.DefaultTransaction`, `changedModelID`); prefer the reference names, and if something does not compile, check the current documentation rather than guessing.

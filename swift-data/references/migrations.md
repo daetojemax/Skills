@@ -4,6 +4,8 @@ Every shipped schema change is a migration of real user data. Plan it before cha
 
 If the project syncs with CloudKit, the rules in `cloudkit.md` ("Schema evolution") override anything below: synced schemas only grow.
 
+Apple's reference pages for `VersionedSchema`, `SchemaMigrationPlan`, and `MigrationStage` contain no prose or examples, so this file is the working reference. The examples below were compiled in Swift 6 language mode and run against a real store (see `SOURCES.md`).
+
 
 ## Lightweight first
 
@@ -94,8 +96,6 @@ enum AppMigrationPlan: SchemaMigrationPlan {
     }
 }
 ```
-
-Stages are computed properties: a `static let` holding a `MigrationStage` can trigger strict-concurrency diagnostics about non-`Sendable` global state.
 
 - List schemas oldest to newest, with a stage between each adjacent pair. Use `.lightweight(fromVersion:toVersion:)` where nothing custom is needed.
 - `willMigrate` sees the old models (prepare or deduplicate before a constraint is added); `didMigrate` sees the new ones (fill new fields).

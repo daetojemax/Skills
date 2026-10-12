@@ -64,7 +64,7 @@ Prefer the API reference over Apple's articles when they disagree: articles some
 ### Writing data code
 
 - Queries and predicates: `references/predicates.md`.
-- Containers, contexts, saving, undo, stores, `@ModelActor`: `references/context-and-actors.md`.
+- Containers, contexts, stores, `@ModelActor`, identity: `references/core-rules.md` ("Containers, contexts, and tests").
 - Widgets, App Intents, app groups, history: `references/widgets-and-history.md`.
 - Changing an existing model: `references/migrations.md`.
 
@@ -73,19 +73,19 @@ Prefer the API reference over Apple's articles when they disagree: articles some
 1. Data loss risks: delete rules, bulk deletes, migrations, store location changes.
 2. Runtime crashes: predicates (`references/predicates.md`), forbidden property names and observers (`references/core-rules.md`).
 3. CloudKit compatibility, if applicable (`references/cloudkit.md`).
-4. Isolation: models or contexts crossing actors, `@Query` outside views (`references/context-and-actors.md`).
+4. Isolation: models or contexts crossing actors, `@Query` outside views (`references/core-rules.md`).
 5. Query efficiency: fetch limits, `propertiesToFetch`, prefetching, indexes (`references/core-rules.md`, `references/indexing.md`).
-6. Tests, if present (`references/testing.md`).
+6. Tests, if present (`references/core-rules.md`, "Containers, contexts, and tests").
 
 For a partial review, load only the relevant references.
 
 ### Writing tests
 
-Follow `references/testing.md`: in-memory containers built by the app's own factory, a fresh container per test, stores and model actors tested directly.
+Follow "Containers, contexts, and tests" in `references/core-rules.md`: in-memory containers from the app's own factory, a fresh container per test, stores and model actors tested directly.
 
 ### Debugging
 
-Start with `references/troubleshooting.md`.
+Check container wiring and save boundaries first (`references/core-rules.md`), then predicates (`references/predicates.md`). Look up SwiftData error codes with `DocumentationSearch`.
 
 
 ## Output format
@@ -133,13 +133,10 @@ End of example.
 
 ## References
 
-- `references/core-rules.md` – saving, relationships, delete rules, property restrictions, fetch optimization.
+- `references/core-rules.md` – saving, relationships, delete rules, property restrictions, fetch optimization; containers, contexts, `@ModelActor`, identity, tests.
 - `references/predicates.md` – supported and crashing predicates, captured values, dynamic queries.
-- `references/context-and-actors.md` – container setup, context roles, saving, undo, stores, `@ModelActor`, identity.
 - `references/cloudkit.md` – CloudKit schema rules, eventual consistency, duplicates, schema evolution, setup.
 - `references/migrations.md` – lightweight changes, `VersionedSchema`, `SchemaMigrationPlan`, testing migrations.
 - `references/widgets-and-history.md` – app group store, widgets, App Intents, persistent history (iOS 18+).
 - `references/indexing.md` – `#Index` (iOS 18+).
 - `references/class-inheritance.md` – model subclassing (iOS 26+).
-- `references/testing.md` – in-memory fixtures, store and `@ModelActor` tests.
-- `references/troubleshooting.md` – symptoms, SwiftData errors, debug sequence.
