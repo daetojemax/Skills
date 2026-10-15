@@ -2,7 +2,7 @@
 
 Building existing SwiftUI code with the Xcode 27 SDK can surface new errors, because `@State` became a macro and `@ViewBuilder` was unified into `@ContentBuilder`. These apply to every deployment target – they come from the SDK, not the OS. Use this file when a project that compiled with Xcode 26 fails with Xcode 27.
 
-Source: Apple's `swiftui-whats-new-27` skill (exported by Xcode 27 with `xcrun agent skills export`); cases marked *verified* were reproduced with the iOS 27.0 SDK. For the full Apple reference, read `~/.xcode-skills/swiftui-whats-new-27/references/` if it exists.
+Source: Apple's `swiftui-whats-new-27` skill from Xcode 27.0; cases marked *verified* were reproduced with the iOS 27.0 SDK.
 
 
 ## `@State` is a macro

@@ -2,7 +2,7 @@
 
 Many older SwiftUI declarations use `deprecated: 100000.0` in their SDK availability attributes. These are soft deprecations: Xcode stays quiet, so a warning-free build does not establish that the code uses current API. Review the source, and inspect a symbol's `@available` declaration in the SDK when its status is unclear.
 
-Apple publishes the complete list of soft-deprecated SwiftUI APIs with their replacements in its `swiftui-specialist` skill. If `~/.xcode-skills/swiftui-specialist/references/soft-deprecated-apis.md` exists (exported with `xcrun agent skills export --output-dir ~/.xcode-skills`), search it before using an API you are unsure about; otherwise check `@available` in the SDK or use `DocumentationSearch`.
+The complete list of soft-deprecated SwiftUI APIs with their replacements (from Apple, generated for the iOS 27 SDK) is in `soft-deprecated-apis.md` – search it before using an API you are unsure about. For APIs newer than that list, check `@available` in the SDK or use `DocumentationSearch`.
 
 Also check the Dynamic Type deprecations in `accessibility.md` and animatable modifier deprecations in `views.md`.
 

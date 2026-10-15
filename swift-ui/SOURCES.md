@@ -51,13 +51,14 @@ Not included: UI Patterns `SKILL.md` (superseded by this skill), `app-wiring.md`
 
 ## Additions from Apple's Xcode 27 skills (2026-10-12)
 
-Most of `swiftui-specialist` matches SwiftUI Pro 2.0 (view structure, data flow, environment, `ForEach`, `AnyShapeStyle`, `View.if()`, single-child `Group`), so only the differences were added. Apple's text is not copied; it stays in `~/.xcode-skills` and is referenced from `api.md` and `xcode27-migration.md`.
+Most of `swiftui-specialist` matches SwiftUI Pro 2.0 (view structure, data flow, environment, `ForEach`, `AnyShapeStyle`, `View.if()`, single-child `Group`), so only the differences were added. Apple's text is not copied, except `references/soft-deprecated-apis.md`, which is Apple's list unchanged (generated for the iOS 27.0 SDKs) so the skill is self-contained.
 
 | File | Change |
 | --- | --- |
 | `SKILL.md` | Apple's soft-deprecation scope rule (keep the API in the edited view and offer migration afterwards; never mention views you did not edit); pointer to `xcode27-migration.md` |
 | `references/xcode27-migration.md` | New: Xcode 27 SDK compile errors from the `@State` macro and `@ContentBuilder`, with fixes |
-| `references/api.md` | Pointer to Apple's full soft-deprecated API list; gate the whole toolbar body for targets below iOS 27; `toolbarMinimizationSafeAreaAdjustment` |
+| `references/soft-deprecated-apis.md` | Apple's list, copied unchanged from the Xcode 27.0 export |
+| `references/api.md` | Pointer to the soft-deprecated list; gate the whole toolbar body for targets below iOS 27; `toolbarMinimizationSafeAreaAdjustment` |
 | `references/performance.md` | Which style ternaries compile without `AnyShapeStyle` |
 | `references/data.md` | Link to the `@State` macro errors |
 | `references/views.md` | Detail views with named sections |

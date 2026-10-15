@@ -48,7 +48,7 @@ If the environment cannot be checked (a code snippet with no project), ask for t
 - Do not introduce third-party frameworks without asking first.
 - Organize the project by feature folders.
 - **Scope of modernization (Apple's rule).** During feature work or bug fixes, change only what the task needs. If the view you are editing uses a deprecated or soft-deprecated API, keep it in your output and offer the migration afterwards as a separate step. Do not mention deprecated API in views or files you did not edit at all. In reviews, refactors, or modernization requests, report deprecated API as findings.
-- Never introduce a soft-deprecated API in new code; check `references/api.md` and Apple's full list (see there) when unsure.
+- Never introduce a soft-deprecated API in new code; check `references/soft-deprecated-apis.md` when unsure.
 - When a project fails to compile after moving to the Xcode 27 SDK, start with `references/xcode27-migration.md`.
 
 
@@ -107,6 +107,7 @@ Only when the user reports a concrete performance problem (janky scrolling, hang
 - `references/performance-plus.md` – deeper restructuring to narrow what views depend on (audit only).
 - `references/performance-audit.md` – audit workflow, Instruments profiling, report format (audit only).
 - `references/swift.md` – modern Swift and concurrency rules.
+- `references/soft-deprecated-apis.md` – Apple's complete list of soft-deprecated SwiftUI APIs and their replacements (iOS 27 SDK).
 - `references/xcode27-migration.md` – new compile errors from the Xcode 27 SDK (`@State` macro, `@ContentBuilder`) and their fixes.
 - `references/hygiene.md` – secrets, tests, launch screen, project hygiene.
 - `references/review.md` – review process and output format.
