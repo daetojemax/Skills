@@ -71,3 +71,22 @@ Verified with the iOS 27.0 SDK (`swiftc -typecheck`):
 - Missing memberwise init for views with `@State` reproduces (`extraneous argument label`).
 - `isOn ? .red : .blue` and `.yellow : .primary` compile; `.primary : .tint` and `.yellow : .tint` do not; `AnyShapeStyle` fixes them.
 - Not reproduced in simple cases (kept as "if you see this error"): the `@State` use-before-initialization error, the `overlay` + `opacity` ambiguity, and a same-module `Color.red` extension.
+
+
+## Additions from Apple's newer Xcode 27 skills (2026-10-27)
+
+Source: the skills as repackaged in [artemnovichkov/xcode-skills](https://github.com/artemnovichkov/xcode-skills) (commit `4768e8d`), newer than the Xcode 27.0 export. Apple's text is paraphrased and condensed, not copied.
+
+| File | Change |
+| --- | --- |
+| `references/accessibility-audit.md` | New: VoiceOver, Larger Text, and Sufficient Contrast audits from Apple's three `accessibility-*-specialist` skills, SwiftUI only (UIKit and AppKit dropped), with `preview-debug` renders |
+| `references/data.md`, `references/xcode27-migration.md` | `@State` defers its initial expression only with a `private`/`fileprivate` getter (from Apple's updated `swiftui-specialist/references/dataflow.md`) |
+| `SKILL.md`, `references/review.md` | Accessibility audit mode |
+
+Verified:
+
+- `@State` lazy initialization (Xcode 27.0 toolchain, macOS 14 and 26 targets; a view constructed twice, counting initializer calls): `private` 0, `fileprivate` 0, `private(set)` 2, `internal` 2. `private(set)` is not mentioned by Apple.
+- `Font.custom(_:size:)` scales with `.body`; only `custom(_:fixedSize:)` opts out (Apple API reference). Apple's Dynamic Type skill suggests `size:` fails.
+- Contrast ratios computed from documented light-mode values: `.secondary` on white ≈ 3.4:1 (Apple's skill says ≈ 4.6:1), `systemGray` ≈ 3.3:1, `systemGray2` ≈ 2.2:1 (Apple: 2.37:1), `systemBlue` ≈ 4.0:1, `systemRed` ≈ 3.5:1.
+
+Not taken here: `xctrace` (a separate skill in this repository), `app-resizability` (covered by `references/resizability.md`), `translation`, `translation-coordinator`.

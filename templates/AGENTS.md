@@ -95,10 +95,11 @@ Installed skills supply language- and framework-level rules. This file supplies 
 
 | Task | Skill |
 | --- | --- |
-| Screens, components, navigation, Liquid Glass, SwiftUI review or refactor, SwiftUI performance | `swift-ui` |
+| Screens, components, navigation, Liquid Glass, SwiftUI review or refactor, SwiftUI performance, accessibility audits | `swift-ui` |
 | async/await, actors, `Sendable`, strict-concurrency errors | `swift-concurrency` |
 | SwiftData models, queries, migrations, CloudKit, widgets sharing a store | `swift-data` |
 | Unit and integration tests | `swift-testing` |
+| Profiling with Instruments from the command line: CPU time, hangs, traces | `xctrace` |
 | Verifying the UI when the app runs through Xcode MCP (outside the Claude app) | `device-interaction` (Apple) |
 | App Store Connect, TestFlight, signing, metadata | the matching `asc-*` skill |
 | Implementing a Figma design | the Figma skills / MCP |

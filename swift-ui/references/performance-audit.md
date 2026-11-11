@@ -44,7 +44,7 @@ For each finding give the likely cause with a code reference, the specific fix, 
 
 ## 3. Profiling with Instruments
 
-When code review is inconclusive, ask the user for runtime evidence:
+When code review is inconclusive, get runtime evidence. To record and read traces yourself from the command line (Time Profiler, hangs, System Trace), use the `xctrace` skill. Otherwise ask the user:
 
 - Profile a **Release** build on a **device** (Product › Profile), using the **SwiftUI** template – SwiftUI instrument, Time Profiler, and Hangs/Hitches together.
 - Reproduce **one** interaction per capture, only long enough to show the issue, and note what was happening.

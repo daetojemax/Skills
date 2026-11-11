@@ -1,6 +1,6 @@
 ---
 name: swift-ui
-description: Builds, reviews, and refactors SwiftUI code using MV (model–view) architecture, modern version-aware APIs, Liquid Glass, accessibility, and adaptive layouts. Use when writing new SwiftUI screens or components, reviewing or refactoring SwiftUI views, wiring navigation, tabs, sheets, or app dependencies, adopting Liquid Glass, checking SwiftUI code for deprecated API, or diagnosing SwiftUI performance problems such as janky scrolling, hangs, high CPU or memory, and excessive view updates.
+description: Builds, reviews, and refactors SwiftUI code using MV (model–view) architecture, modern version-aware APIs, Liquid Glass, accessibility, and adaptive layouts. Use when writing new SwiftUI screens or components, reviewing or refactoring SwiftUI views, wiring navigation, tabs, sheets, or app dependencies, adopting Liquid Glass, checking SwiftUI code for deprecated API, auditing views for VoiceOver, Dynamic Type, and contrast (App Store accessibility nutrition labels), or diagnosing SwiftUI performance problems such as janky scrolling, hangs, high CPU or memory, and excessive view updates.
 license: MIT
 metadata:
   version: "1.0.0"
@@ -86,6 +86,10 @@ Follow `references/review.md`: it lists the review order, which reference to loa
 4. Replace unnecessary or optional view models with plain state (`references/architecture.md`).
 5. Keep behavior intact: do not change layout or logic unless asked.
 
+### Accessibility audit
+
+When the user asks to audit accessibility, check VoiceOver, Dynamic Type, or contrast, or prepare the App Store accessibility nutrition labels: follow `references/accessibility-audit.md`. It gives a verdict per label; render previews with the `preview-debug` skill when Xcode MCP is available.
+
 ### Performance audit
 
 Only when the user reports a concrete performance problem (janky scrolling, hangs, slow typing or navigation, high CPU or memory, excessive updates) or asks for a deep performance review: follow `references/performance-audit.md`, using `references/performance.md` and `references/performance-plus.md`. Keep `performance-audit.md` and `performance-plus.md` out of routine work and reviews.
@@ -101,6 +105,7 @@ Only when the user reports a concrete performance problem (janky scrolling, hang
 - `references/liquid-glass.md` – Liquid Glass design rules, custom glass, tab bars, toolbars, version gating.
 - `references/design.md` – HIG-aligned, flexible design.
 - `references/accessibility.md` – Dynamic Type, VoiceOver, Voice Control, Reduce Motion.
+- `references/accessibility-audit.md` – VoiceOver, Larger Text, and Sufficient Contrast audits with verdicts (audit only).
 - `references/resizability.md` – resizable windows, size classes, safe areas, iPhone Duo.
 - `references/localization.md` – localizable text, bundles, locale-aware formatting.
 - `references/performance.md` – everyday performance rules for writing and routine review.

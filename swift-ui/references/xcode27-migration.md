@@ -11,6 +11,7 @@ Source: Apple's `swiftui-whats-new-27` skill from Xcode 27.0; cases marked *veri
 - **`variable 'self.x' used before being initialized`** when an `init` assigns a `@State` property before other stored properties. Fix: drop the initial value from the `@State` declaration and assign it only in `init`. Do **not** just reorder the assignments.
 - **Assigning in `init` to a `@State` that already has an initial value is an anti-pattern even when it compiles**: `body` still sees the declaration's value. Initialize each `@State` in exactly one place (see `data.md`).
 - **`invalid redeclaration of synthesized property '_x'`** when another property wrapper is composed with `@State`: both synthesize the same backing name. Remove the redundant wrapper or restructure; if unsure, ask the user.
+- **Non-private `@State` with an initial expression is evaluated eagerly** *(verified)*. No error, but `@State var store = Store()` (or `private(set)`) runs `Store()` on every initialization of the view; `private` or `fileprivate` defers it to the first one. A reason to make such state private once callers no longer pass it in (see `data.md`).
 - New code: always `@State private` (Apple's guidance and `data.md`). Existing non-private `@State`: recommend `private`, but do not change it unasked – callers may rely on it.
 
 

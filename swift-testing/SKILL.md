@@ -1,6 +1,6 @@
 ---
 name: swift-testing
-description: Writes, reviews, and improves tests with Swift Testing – @Test, #expect and #require, suites, traits and tags, parameterized tests, async tests and confirmations, fixtures, test doubles for hidden dependencies, test plans, and migration from XCTest. Use when reading, writing, or reviewing tests in Swift projects.
+description: "Writes, reviews, and improves tests with Swift Testing – @Test, #expect and #require, suites, traits and tags, parameterized tests, async tests and confirmations, fixtures, test doubles for hidden dependencies, test plans, and migration from XCTest. Use when reading, writing, or reviewing tests in Swift projects."
 license: MIT
 metadata:
   version: "1.0.0"

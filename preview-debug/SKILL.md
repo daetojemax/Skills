@@ -1,6 +1,6 @@
 ---
 name: preview-debug
-description: Renders SwiftUI #Preview snapshots through Xcode MCP's RenderPreview so the agent can see a view without running the app – checking a UI change, comparing light/dark, Dynamic Type sizes up to AX5, increased contrast, orientation, or iPhone vs iPad, and detecting stale renders. Use when you need to look at a single SwiftUI view or screen; for navigation flows and interaction, run the app in a simulator instead.
+description: "Renders SwiftUI #Preview snapshots through Xcode MCP's RenderPreview so the agent can see a view without running the app – checking a UI change, comparing light/dark, Dynamic Type sizes up to AX5, increased contrast, orientation, or iPhone vs iPad, and detecting stale renders. Use when you need to look at a single SwiftUI view or screen; for navigation flows and interaction, run the app in a simulator instead."
 license: MIT
 metadata:
   version: "1.0.0"

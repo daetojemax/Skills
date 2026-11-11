@@ -21,7 +21,7 @@ Run Step 0 from `SKILL.md` first: findings must respect the project's deployment
 12. Swift and concurrency – `swift.md`.
 13. Hygiene – `hygiene.md`.
 
-For a partial review ("check the navigation", "is this accessible?"), load only the relevant files. For a deep performance review, follow `performance-audit.md` instead.
+For a partial review ("check the navigation", "is this accessible?"), load only the relevant files. For a deep performance review, follow `performance-audit.md` instead; for an accessibility audit with verdicts, `accessibility-audit.md`.
 
 
 ## Output format
